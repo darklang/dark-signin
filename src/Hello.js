@@ -18,20 +18,26 @@ class Hello extends Component {
       hosts: [],
       selectedHost: '',
       visitor: '',
-      checkedIn: false
+      checkedIn: false,
+      error: null
     }
   }
 
   componentDidMount(){
-    getHosts((result) => {
-      this.setState({hosts: result})
-    })
+    getHosts(
+      (result) => { 
+        this.setState({hosts: result.data})
+      },
+      (error) => { 
+        this.setState({error: error.message})
+      }
+    )
   }
 
-
   onSubmit = () => {
-    postVisit(this.state.selectedHost, this.state.visitor, (success) => {
-      this.setState({checkedIn: success})
+    postVisit(this.state.selectedHost, this.state.visitor,
+      (error) => {
+        this.setState({checkedIn: !error, error: error ? error.message : null })
     })
   }
 
@@ -50,25 +56,33 @@ class Hello extends Component {
   }
 
   render(){
-    const { visitor, selectedHost } = this.state;
-    if (this.state.checkedIn) {
-      return (
+    const { visitor, selectedHost, checkedIn, error } = this.state;
+
+    return (<div>
+      { error &&
+        <Paper
+          elevation={3}
+          style={{'padding': '10px', 'margin': '20px', 'backgroundColor': '#f44336', 'color': '#fff'}}
+        >
+        {error}
+        </Paper>
+      }
+
+      { checkedIn ? 
         <Paper
           elevation={1}
           style={{'padding': '10px', 'margin': '20px'}}
         >
-          Welcome {visitor} ! {selectedHost} will be with you shortly.
-        </Paper>)
-    }
-    else {
-  	return (
+          Welcome {visitor}! {selectedHost} will be with you shortly.
+        </Paper>
+      : 
       <form>
       <FormControl fullWidth={true} margin='normal'>
           <Select
             value={selectedHost}
             onChange={this.selectHost}
           >
-          {this.state.hosts.map(h => (<MenuItem value={h}>{h}</MenuItem>) )}
+          {this.state.hosts.map(h => (<MenuItem value={h} key={h}>{h}</MenuItem>) )}
           </Select>
           <FormHelperText>Who are you here to see?</FormHelperText>
       </FormControl>
@@ -84,9 +98,12 @@ class Hello extends Component {
       <FormControl fullWidth={true} margin='normal'>
         <Button variant="contained" color="primary" onClick={this.onSubmit}>Check-in</Button>
       </FormControl>
-  		</form>)
-    }
+      </form>
+      }
+
+    </div>)
   }
+
 }
 
 export default Hello;

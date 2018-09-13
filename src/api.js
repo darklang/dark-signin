@@ -1,24 +1,19 @@
+import axios from 'axios'
+
 const HOST = 'https://alice-envoy.builtwithdark.com';
 
-export const getHosts = (callback) => {
-	fetch(`${HOST}/hosts`)
-    .then(res => res.json())
-      .then(callback,
-        (error) => {
-          console.log(error)
-        }
-      )
+export const getHosts = (callback, error) => {
+	axios.get(`${HOST}/hosts`)
+		.then(callback)
+		.catch(error)
 }
 
 export const postVisit = (hostName, visitorName, callback) => {
-	fetch(`${HOST}/visit`,
-		{ method: 'POST',
-			body: JSON.stringify({'host': hostName, 'visitor': visitorName }),
-			headers: { 'Content-Type': 'application/json' }
+	axios.post(
+		`${HOST}/visit`,
+		{ 
+			'host': hostName, 'visitor': visitorName
 		}
-	).then(res => res.json())
-  .then(
-  	(result) => { callback(true) },
-    (error) => { callback(false) }
-  )
+	).then((result) => { callback(null) })
+	.catch((error) => { callback(error) })
 }
