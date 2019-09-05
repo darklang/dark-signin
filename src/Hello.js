@@ -96,7 +96,7 @@ class Hello extends Component {
       </FormControl>
 
       <FormControl fullWidth={true} margin='normal'>
-        <Button variant="contained" color="primary" onClick={this.onSubmit}>Check-in</Button>
+        <Button variant="contained" color="primary" onClick={this.onSubmit}>Sign In</Button>
       </FormControl>
       </form>
       }

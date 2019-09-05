@@ -28,7 +28,7 @@ class App extends Component {
       <AppBar position="static" color="primary">
         <Toolbar>
           <Typography variant="title" color="inherit">
-            Envoy
+            Dark SignIn
           </Typography>
         </Toolbar>
       </AppBar>

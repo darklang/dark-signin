@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-const HOST = 'https://alice-envoy.builtwithdark.com';
+const HOST = 'https://ellen-fullstackfest.builtwithdark.com';
 
 export const getHosts = (callback, error) => {
 	axios.get(`${HOST}/hosts`)
@@ -16,4 +16,8 @@ export const postVisit = (hostName, visitorName, callback) => {
 		}
 	).then((result) => { callback(null) })
 	.catch((error) => { callback(error) })
-}
+}		
+
+
+
+
