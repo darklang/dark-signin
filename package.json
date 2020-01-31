@@ -11,8 +11,9 @@
     "react-scripts": "1.1.5"
   },
   "scripts": {
+    "get-dark-cli": "curl https://dark-cli.storage.googleapis.com/latest/dark-cli-apple --output dark-cli-apple && chmod +x dark-cli-apple",
     "start": "react-scripts start",
-    "build": "react-scripts build",
+    "build": "PUBLIC_URL=DARK_STATIC_ASSETS_BASE_URL react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
   }
