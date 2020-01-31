@@ -10,10 +10,16 @@
     "react-dom": "^16.5.0",
     "react-scripts": "1.1.5"
   },
+  "devDependencies": {
+    "npm-run-all": "4.1.5"
+  },
   "scripts": {
     "get-dark-cli": "curl https://dark-cli.storage.googleapis.com/latest/dark-cli-apple --output dark-cli-apple && chmod +x dark-cli-apple",
     "start": "react-scripts start",
-    "build": "PUBLIC_URL=DARK_STATIC_ASSETS_BASE_URL react-scripts build",
+    "build": "react-scripts build",
+    "build-dark-assets": "PUBLIC_URL=DARK_STATIC_ASSETS_BASE_URL react-scripts build",
+    "choose-canvas": "scripts/choose-canvas.js",
+    "build-for": "run-s \"choose-canvas {1}\" build-dark-assets -- $*",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
   }
